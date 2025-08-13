@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Formasphere | Login / Sign Up</title>
+  <link rel="stylesheet" href="login.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="auth-container">
+    <div class="brand-side">
+      <h1>Formasphere Talent Hub</h1>
+      <p>Work Without the Chaos. Join our private network of top talents.</p>
+    </div>
+
+    <div class="form-side">
+      <div class="top-bar">
+        <select id="languageSelect">
+          <option value="en">English</option>
+          <option value="am">አማርኛ</option>
+          <option value="ar">العربية</option>
+          <option value="tr">Türkçe</option>
+        </select>
+      </div>
+
+      <div class="tabs">
+        <button id="loginTab" class="active" type="button">Login</button>
+        <button id="signupTab" type="button">Sign Up</button>
+      </div>
+
+      <!-- Form container -->
+      <div id="authForm"></div>
+
+      <div class="terms">
+        <small>By continuing, you agree to our <a href="terms.html" target="_blank">Terms & Conditions</a>.</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = "https://potvmgchhffpgkiczsco.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBvdHZtZ2NoaGZmcGdraWN6c2NvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ5Mzc0NDYsImV4cCI6MjA3MDUxMzQ0Nn0.Rw-ypl0Z3ccguWSS6OCmFOBDagLQM01zmoR9t4POThg";
+    const { createClient } = supabase;
+    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  </script>
+
+  <script src="login.js"></script>
+</body>
+</html>

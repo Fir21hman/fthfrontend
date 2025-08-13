@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Talent Pool Registration — Formasphere</title>
+  <link rel="stylesheet" href="form.css">
+  <script>
+    // Configure backend endpoint (change in production as needed)
+    window.API_BASE_URL = window.API_BASE_URL || 'http://localhost:3000';
+  </script>
+</head>
+<body>
+  <!-- full-screen background + overlay -->
+  <div class="bg-image" aria-hidden="true"></div>
+  <div class="bg-overlay" aria-hidden="true"></div>
+
+  <!-- top bar with language selector -->
+  <header class="top-bar" role="banner">
+    <div class="brand">
+      <img src="https://via.placeholder.com/40" alt="Formasphere logo" class="brand-logo">
+      <span class="brand-title">Formasphere Talent Hub</span>
+    </div>
+    <div class="controls">
+      <label for="languageSelect" class="sr-only">Language</label>
+      <select id="languageSelect" aria-label="Choose language">
+        <option value="en">English</option>
+        <option value="am">አማርኛ</option>
+        <option value="ar">العربية</option>
+        <option value="tr">Türkçe</option>
+      </select>
+    </div>
+  </header>
+
+  <!-- main card -->
+  <main class="main">
+    <section class="card" aria-labelledby="pageHeading">
+      <h1 id="pageHeading">Talent Pool Registration</h1>
+
+      <!-- step indicator text -->
+      <div id="stepIndicator" class="step-indicator" aria-live="polite"></div>
+
+      <!-- multi-step form -->
+      <form id="talentForm" novalidate autocomplete="off" aria-describedby="formMessage">
+        <!-- Step 1: Personal Info -->
+        <section class="form-step active" data-step="1" aria-label="Personal information">
+          <label for="name" id="label_name">Full Name *</label>
+          <input id="name" name="name" type="text" required aria-required="true" placeholder="your name">
+
+          <label for="contact" id="label_contact">Phone / Telegram / WhatsApp *</label>
+          <input id="contact" name="contact" type="text" required aria-required="true" placeholder="your number or username">
+
+          <label for="location" id="label_location">Location *</label>
+          <input id="location" name="location" type="text" required aria-required="true" placeholder="city,country">
+
+          <label for="currentRole" id="label_currentRole">Current Role *</label>
+          <select id="currentRole" name="currentRole" required>
+            <option value="">-- Select --</option>
+            <option>Student</option>
+            <option>Graduate</option>
+            <option>Self-taught professional</option>
+            <option>Professional</option>
+          </select>
+
+          <label for="profession" id="label_profession">Profession *</label>
+          <select id="profession" name="profession" required>
+            <option value="">-- Select Profession --</option>
+            <option>Architect</option>
+            <option>Interior Designer</option>
+            <option>3D Visualizer/Renderer</option>
+            <option>Graphic Designer</option>
+            <option>Video Editor</option>
+            <option>Motion Graphics Artist</option>
+          </select>
+        </section>
+
+        <!-- Step 2: Work Type -->
+        <section class="form-step" data-step="2" aria-label="Work preferences">
+          <fieldset>
+            <legend id="legend_workType">Work Type *</legend>
+            <label><input type="radio" name="workType" value="Freelance" required> Freelance</label>
+            <label><input type="radio" name="workType" value="Full-time"> Full-time</label>
+            <label><input type="radio" name="workType" value="Part-time"> Part-time</label>
+            <label><input type="radio" name="workType" value="As Needed"> As Needed</label>
+          </fieldset>
+        </section>
+
+        <!-- Step 3: Availability -->
+        <section class="form-step" data-step="3" aria-label="Availability">
+          <fieldset>
+            <legend id="legend_availability">Availability *</legend>
+            <label><input type="checkbox" name="availability" value="Weekdays"> Weekdays</label>
+            <label><input type="checkbox" name="availability" value="Weekends"> Weekends</label>
+          </fieldset>
+
+          <label for="timeZone" id="label_timeZone">Time Zone *</label>
+          <select id="timeZone" name="timeZone" required>
+            <option value="">-- Select Time Zone --</option>
+            <option value="UTC+3">UTC+3 (East Africa Time)</option>
+            <!-- expand as needed -->
+          </select>
+
+          <label for="preferredHours" id="label_preferredHours">Preferred Working Hours *</label>
+          <input id="preferredHours" name="preferredHours" type="text" placeholder="e.g. 9am - 5pm" required>
+        </section>
+
+        <!-- Step 4: Tool Selection -->
+        <section class="form-step" data-step="4" aria-label="Tool selection">
+          <p class="section-title" id="toolsTitle">Select the tools you are familiar with:</p>
+          <div id="toolSelectGrid" class="skills-grid" role="list" aria-label="Tools selection"></div>
+        </section>
+
+        <!-- Step 5: Ratings -->
+        <section class="form-step" data-step="5" aria-label="Tool ratings">
+          <p class="section-title" id="ratingTitle">Rate your proficiency for each selected tool:</p>
+          <div id="ratingGrid" class="skills-grid" aria-live="polite"></div>
+
+          <label for="enjoyedTools" id="label_enjoyedTools">Any tools you especially enjoy using?</label>
+          <input id="enjoyedTools" name="enjoyedTools" type="text" placeholder="Type tool names you love...">
+        </section>
+
+        <!-- Step 6: Portfolio -->
+        <section class="form-step" data-step="6" aria-label="Portfolio upload">
+          <label for="portfolioFiles" id="label_portfolioFiles">Upload Portfolio (PDF, Images, Videos) - Max 5MB each</label>
+          <input id="portfolioFiles" name="portfolioFiles" type="file" accept=".pdf,image/*,video/*" multiple aria-describedby="fileHelp">
+          <small id="fileHelp" class="form-text">You can upload multiple files (max 5MB each)</small>
+
+          <label for="portfolioURL" id="label_portfolioURL">Or enter Portfolio URL</label>
+          <input id="portfolioURL" name="portfolioURL" type="url" placeholder="https://yourportfolio.com">
+        </section>
+
+        <!-- Step 7: Review -->
+        <section class="form-step" data-step="7" aria-label="Review and submit">
+          <h2 class="review-title">Review your information</h2>
+          <div id="reviewData" class="review-box" role="region" aria-live="polite"></div>
+        </section>
+
+        <!-- Navigation buttons -->
+        <div class="buttons" role="group" aria-label="Form navigation">
+          <button type="button" id="prevBtn" disabled aria-controls="talentForm">Previous</button>
+          <button type="button" id="nextBtn" aria-controls="talentForm">Next</button>
+          <button type="submit" id="submitBtn" class="hidden">Submit Application</button>
+        </div>
+      </form>
+
+      <!-- status message -->
+      <div id="formMessage" class="form-message" role="status" aria-live="polite"></div>
+
+      <!-- stepper visuals -->
+      <div class="icon-stepper" id="iconStepper" aria-hidden="true">
+        <div class="step active"><span>1</span><p>Info</p></div>
+        <div class="step"><span>2</span><p>Work</p></div>
+        <div class="step"><span>3</span><p>Availability</p></div>
+        <div class="step"><span>4</span><p>Tools</p></div>
+        <div class="step"><span>5</span><p>Rating</p></div>
+        <div class="step"><span>6</span><p>Portfolio</p></div>
+        <div class="step"><span>7</span><p>Review</p></div>
+      </div>
+
+      <div class="mobile-stepper" id="mobileStepper" aria-hidden="true"></div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="protect.js"></script>
+
+  <script src="form.js"></script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,11 @@
+const { createClient } = supabase;
+const supabaseClient = createClient(
+  "https://potvmgchhffpgkiczsco.supabase.co",
+   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBvdHZtZ2NoaGZmcGdraWN6c2NvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ5Mzc0NDYsImV4cCI6MjA3MDUxMzQ0Nn0.Rw-ypl0Z3ccguWSS6OCmFOBDagLQM01zmoR9t4POThg"
+  );
+
+supabaseClient.auth.getSession().then(({ data }) => {
+  if (!data.session) {
+    window.location.href = "login.html";
+  }
+});
